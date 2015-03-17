@@ -5,7 +5,7 @@
 <% if params[:action] == 'edit' and current_user.admin? %>
 <!-- merge button -->
   <h3><%= _("You can associate the following resources")%></h3>
-  <h3><%= _("Merge Article")%></h3>
+  <h3><%= _("Merge Articles")%></h3>
   Article ID 
   <%= form_tag(controller: "admin/content", method: "post", action: "merge", id: params[:id]) do %>
       <%= text_field_tag "merge_with"%> <br />
