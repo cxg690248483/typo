@@ -21,7 +21,7 @@ class Admin::ContentController < Admin::BaseController
     end
     @article.merge_with(params[:merge_with])
 
-    #Article.destroy(params[:merge_with])
+    Article.destroy(params[:merge_with])
     redirect_to :action => 'edit', :id => params[:id]
   end
 
