@@ -11,6 +11,18 @@ class Admin::ContentController < Admin::BaseController
     render :inline => "<%= raw auto_complete_result @items, 'name' %>"
   end
 
+  def merge
+    #merge with another article
+    @article = Article.find(params[:id])
+    if (params[:merge_with] == "" or !Article.exists?({:id => params[:merge_with]}))
+      flash[:error] = _("Error, no article with input ID found")
+      redirect_to :action => 'edit', :id => params[:id]
+      return
+    end
+    @article.merge_with(params[:merge_with])
+    redirect_to :action => 'edit', :id => params[:id]
+  end
+
   def index
     @search = params[:search] ? params[:search] : {}
     
@@ -145,7 +157,11 @@ class Admin::ContentController < Admin::BaseController
     @article = Article.get_or_build_article(id)
     @article.text_filter = current_user.text_filter if current_user.simple_editor?
 
+
+
     @post_types = PostType.find(:all)
+
+
     if request.post?
       if params[:article][:draft]
         get_fresh_or_existing_draft_for_article
