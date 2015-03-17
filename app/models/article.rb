@@ -78,6 +78,12 @@ class Article < Content
     else
       self.body += ("<p>" + article_to_merge.body + "</p>")
     end
+
+    
+    article_to_merge.comments.each do |comment|
+      comment.update_attributes(:article_id => self[:id])
+    end
+
     self.save
   end
   def set_permalink
