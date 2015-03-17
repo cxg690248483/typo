@@ -2,7 +2,7 @@
 
 <%= render "admin/shared/edit", { :form_type => "article", :form_action => { :action => "new", :id => @article.id , :class => ('autosave')} } %>
 
-<% if params[:action] == 'edit' %>
+<% if params[:action] == 'edit' and current_user.admin? %>
 <!-- merge button -->
   <h3><%= _("You can associate the following resources")%></h3>
   <h3><%= _("Merge Article")%></h3>
